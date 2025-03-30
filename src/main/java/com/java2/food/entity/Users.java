@@ -1,7 +1,11 @@
 package com.java2.food.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -16,8 +20,8 @@ import jakarta.persistence.*;
 @Table(name = "Users")
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     @Column(name = "username", unique = true,nullable = false, columnDefinition = "VARCHAR(255) COLLATE utf8mb4_unicode_ci")
     String username;
 

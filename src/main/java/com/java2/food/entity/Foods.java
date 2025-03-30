@@ -25,8 +25,8 @@ public class Foods {
     @Column(name = "name",nullable = false, columnDefinition = "VARCHAR(255) COLLATE utf8mb4_unicode_ci")
     String name;
 
-    @Column(name = "price", unique = true,nullable = false, columnDefinition = "VARCHAR(255) COLLATE utf8mb4_unicode_ci")
-    BigDecimal price;
+    @Column(name = "price",nullable = false)
+    Long price;
 
     @Column(name = "image", columnDefinition = "VARCHAR(255) COLLATE utf8mb4_unicode_ci")
     String image;

@@ -12,12 +12,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FoodReponse {
     Long id;
-
     String name;
-
-    BigDecimal price;
-
+    Long price;
     String image;
-
     String category;
 }

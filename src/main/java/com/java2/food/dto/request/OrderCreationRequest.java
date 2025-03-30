@@ -1,4 +1,5 @@
-package com.java2.food.dto.response;
+package com.java2.food.dto.request;
+
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,10 +9,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserReponse {
+public class OrderCreationRequest {
+    Long userId;
 
-    Long id;
-    String username;
-    String email;
-    String password;
+    String address;
 }

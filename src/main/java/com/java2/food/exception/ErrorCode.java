@@ -16,6 +16,10 @@ public enum ErrorCode {
     UNAUTHENTICATED(1006, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     INVALID_DOB(1008, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
+    INVALID_NAME(1009,"Your name must be at least {min}",HttpStatus.BAD_REQUEST),
+    INVALID_PRICE(1010,"Price must be from 1-10000000", HttpStatus.BAD_REQUEST),
+    DATABASE_ERROR(2002, "Lỗi kết nối database", HttpStatus.INTERNAL_SERVER_ERROR),
+    FOOD_NOT_EXISTED(1011, "Food not existed", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
