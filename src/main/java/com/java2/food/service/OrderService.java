@@ -17,6 +17,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -25,6 +27,7 @@ public class OrderService {
     OrderRepository orderRepository;
     OrderItemService orderItemService;
     OrderMapper orderMapper;
+    CartService cartService;
 
     @Transactional
     public OrderResponse placeOrder(OrderCreationRequest request){
@@ -32,9 +35,15 @@ public class OrderService {
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         Order order  = orderMapper.toOrder(request);
+        order.setUser(user);
+
+
+        int amount = cartService.totalItem(request.getUserId());
+
+        order.setAmount((double)amount);
+
         try{
             order = orderRepository.save(order);
-
         }catch (DataAccessException exception){
             throw new AppException(ErrorCode.DATABASE_ERROR);
         }
@@ -42,4 +51,14 @@ public class OrderService {
         return orderMapper.toOrderResponse(order);
     }
 
+
+    public List<OrderResponse> getAllOrder(){
+        return orderRepository.findAll().stream().map(orderMapper::toOrderResponse).toList();
+    }
+
+    public OrderResponse getOrderDetail(Long orderId){
+        Order order = orderRepository.findOrderWithItems(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+        return orderMapper.toOrderResponse(order);
+    }
 }

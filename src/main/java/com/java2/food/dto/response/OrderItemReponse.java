@@ -11,8 +11,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderItemReponse {
     Long id;
-    Long order;
-    Long food;
+    String foodName;
     int quantity;
     Double price;
 }

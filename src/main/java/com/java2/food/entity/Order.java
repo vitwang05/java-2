@@ -2,10 +2,8 @@ package com.java2.food.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 import jakarta.persistence.*;
 
@@ -46,6 +44,9 @@ public class Order {
     @Column(nullable = false)
     Boolean payment ;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    Set<OrderItems> orderItems = new HashSet<>();
+
     @PrePersist
     public void setDefaultValues() {
         if (payment == null) {
@@ -58,5 +59,6 @@ public class Order {
             date = new Date();
         }
     }
+
 
 }

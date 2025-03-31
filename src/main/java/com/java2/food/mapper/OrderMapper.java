@@ -1,12 +1,16 @@
 package com.java2.food.mapper;
 
 import com.java2.food.dto.request.OrderCreationRequest;
+import com.java2.food.dto.response.OrderItemReponse;
 import com.java2.food.dto.response.OrderResponse;
 import com.java2.food.dto.response.UserReponse;
 import com.java2.food.entity.Order;
+import com.java2.food.entity.OrderItems;
 import com.java2.food.entity.Users;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
@@ -17,11 +21,8 @@ public interface OrderMapper {
     @Mapping(target = "user", source = "user")
     OrderResponse toOrderResponse(Order order);
 
+    List<OrderResponse> toOrderItemDTOs(List<OrderItems> orderItems);
 
-
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "username", source = "username")
-    @Mapping(target = "email", source = "email")
-    @Mapping(target = "password", source = "password")
-    UserReponse usersToUserResponse(Users user);
+    @Mapping(source = "food.name", target = "foodName")
+    OrderItemReponse toOrderItem(OrderItems orderItem);
 }

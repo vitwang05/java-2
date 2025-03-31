@@ -80,5 +80,11 @@ public class CartService {
         }
     }
 
-
+    public int totalItem(Long userId){
+        List<Cart> cartItems = cartRepository.findByUserId(userId);
+        if (cartItems.isEmpty()) {
+            throw new RuntimeException("Cart is empty for user: " + userId);
+        }
+        return cartItems.stream().mapToInt(Cart::getQuantity).sum();
+    }
 }
