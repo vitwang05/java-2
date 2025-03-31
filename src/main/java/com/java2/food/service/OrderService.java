@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +61,27 @@ public class OrderService {
         Order order = orderRepository.findOrderWithItems(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
         return orderMapper.toOrderResponse(order);
+    }
+    public Object updateStatus(Long id, String status) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + id));
+        order.setStatus(status);
+        orderRepository.save(order);
+        return null;
+    }
+
+    public Boolean verifyPayment(Map<String, Object> body) {
+        Long orderId = Long.valueOf(body.get("orderId").toString());
+        String successStr = (String) body.get("success");
+        boolean success = "true".equalsIgnoreCase(successStr);
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+        if (success) {
+            order.setPayment(true);
+            orderRepository.save(order);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

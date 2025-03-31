@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
@@ -40,5 +41,16 @@ public class OrderController {
         return ApiResponse.<OrderResponse>builder()
                 .result(orderService.getOrderDetail(orderId))
                 .build();
+    }
+
+    @PostMapping("/update")
+    public ApiResponse<?> updateStatus(@RequestParam Long id, @RequestParam String status) {
+        return ApiResponse.builder().result(orderService.updateStatus(id, status)).message("success")
+                .build();
+    }
+
+    @PostMapping("/verify")
+    public ApiResponse<?> verifyPayment(@RequestBody Map<String, Object> body) {
+        return ApiResponse.builder().result(orderService.verifyPayment(body)).message("success").build();
     }
 }
