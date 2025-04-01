@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/cart")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-
+@CrossOrigin(origins = "*")
 public class CartController {
 
     CartService cartService;

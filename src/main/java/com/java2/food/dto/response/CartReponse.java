@@ -12,7 +12,8 @@ import java.util.Map;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CartReponse {
+    Long id;
     Long userId;
-    Long foodId;
+    FoodReponse food;
     int quantity;
 }

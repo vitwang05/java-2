@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -23,17 +24,29 @@ public class UserService {
     UserMapper userMapper;
 
 
-    public UserReponse createUser(UserCreationRequest request){
+    public UserReponse createUser(UserCreationRequest request) {
         Users user = userMapper.toUser(request);
-        try{
+        try {
             user = userRepository.save(user);
-        }catch (DataIntegrityViolationException exception){
+        } catch (DataIntegrityViolationException exception) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         return userMapper.toUserReponse(user);
     }
 
-    public List<UserReponse> getUser(){
+    public List<UserReponse> getUser() {
         return userRepository.findAll().stream().map(userMapper::toUserReponse).toList();
+    }
+
+    public UserReponse login(Map<String, Object> body) {
+        String email = (String) body.get("email");
+        String password = (String) body.get("password");
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        if (password.equals(user.getPassword())) {
+            return userMapper.toUserReponse(user);
+        } else {
+            throw new AppException(ErrorCode.WRONG_PASS_OR_EMAIL);
+        }
     }
 }

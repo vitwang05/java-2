@@ -20,6 +20,7 @@ public enum ErrorCode {
     INVALID_PRICE(1010,"Price must be from 1-10000000", HttpStatus.BAD_REQUEST),
     DATABASE_ERROR(2002, "Lỗi kết nối database", HttpStatus.INTERNAL_SERVER_ERROR),
     FOOD_NOT_EXISTED(1011, "Food not existed", HttpStatus.NOT_FOUND),
+    WRONG_PASS_OR_EMAIL(1012, "Wrong password or email", HttpStatus.NOT_FOUND)
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

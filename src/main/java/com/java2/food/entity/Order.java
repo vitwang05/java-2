@@ -44,7 +44,7 @@ public class Order {
     @Column(nullable = false)
     Boolean payment ;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     Set<OrderItems> orderItems = new HashSet<>();
 
     @PrePersist

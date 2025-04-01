@@ -18,6 +18,8 @@ import java.util.Map;
 @RequestMapping("/order")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@CrossOrigin(origins = "*")
+
 public class OrderController {
     OrderService orderService;
 

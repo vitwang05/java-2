@@ -16,6 +16,8 @@ import java.util.List;
 @RequestMapping("/foods")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@CrossOrigin(origins = "*")
+
 public class FoodController {
     FoodService foodService;
 
