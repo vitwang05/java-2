@@ -38,4 +38,11 @@ public class FoodController {
         foodService.deleteFood(foodId);
         return ApiResponse.<String>builder().result("Food has been deleted").build();
     }
+
+    @GetMapping("/search")
+    ApiResponse<List<FoodReponse>> search(@RequestParam String keyword){
+        return ApiResponse.<List<FoodReponse>>builder()
+                .result(foodService.SearchFood(keyword))
+                .build();
+    }
 }

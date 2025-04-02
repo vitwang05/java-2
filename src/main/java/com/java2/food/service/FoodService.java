@@ -50,4 +50,12 @@ public class FoodService {
         }
 
     }
+
+
+    public List<FoodReponse> SearchFood(String keyword ){
+        if(keyword == null){
+            return foodRepository.findAll().stream().map(foodMapper::toFoodReponse).toList();
+        }
+        return foodRepository.searchByKeyword(keyword).stream().map(foodMapper::toFoodReponse).toList();
+    }
 }
